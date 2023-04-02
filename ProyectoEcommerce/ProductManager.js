@@ -2,79 +2,12 @@ import * as fs from 'fs';
 import Producto from './Producto.js';
 
 class ProductManager{
-   /* constructor(){
-        
-        this.productos = new Array();
-    }
-      
-
-    
-    getProductos = () => {
-        return this.productos;
-    }
-    agregarProducto = (titulo, descripcion, precio, img, code, stock) => {
-        if(this.productos.some((element) => (element).code === code)){
-            console.log("Code repetido.");
-            
-        }else{
-            let id;
-            if(this.productos.length===0){
-                id=1;
-            }else{
-                id = this.productos[this.productos.length-1].id +1;
-            }
-    
-            let nuevoProducto = new Producto (id,titulo, descripcion, precio, img, code, stock);
-            
-            this.productos.push(nuevoProducto);
-
-        }
-            console.log("Se agrego el producto con exito.");
-        
-    }
-    getProductById (id) {
-        //let productFilter = this.productos.find((element) => element.id === id);
-        //return (productFilter) || ("no se encontro el id");
-        let productId
-        if(productId = this.productos.find(product => product.id === id)){
-
-            console.log("Existing product")
-            return productId;
-        }else{
-
-            console.log("Product not found");
-        }
-
-        
-    }*/
-
+   
     constructor(pat){
         this.path = pat;
         this.productos = new Array();
         console.log("generando escritura de archivo Sync con fileName:" + this.path);
         
-        /*fs.promises.mkdir(this.path, { recursive: true });
-        if(!fs.existsSync(this.path)){
-            fs.promises.writeFile(this.path, "[]");
-        }else{
-            fs.promises.writeFile(this.path, "[]");
-        }
-        if(fs.existsSync(this.path)){
-            console.log("archivo creado con exito en la ruta:" + fs.realpathSync(this.path));
-            fs.appendFileSync(this.path);
-            let contenido = fs.readFileSync(this.path, "utf-8");
-            console.log("actualizando contenido del archivo"),
-            console.log(contenido);
-            console.log("Borrando archivo...");
-            fs.unlinkSync(this.path);
-            fs.existsSync(this.path) ? console.log("el archivo no se pudo borrar..") : console.log("archivo borrado");
-        
-        }else{
-            console.error("Error creando el archivo");
-        
-        }*/
-
-        // let archivo = new Archivo(Array);
     }
 
     writeFile = async data => {
