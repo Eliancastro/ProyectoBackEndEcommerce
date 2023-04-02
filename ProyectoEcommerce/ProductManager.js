@@ -95,7 +95,7 @@ class ProductManager{
     }
     agregarProducto = (titulo, descripcion, precio, img, code, stock) => {
         if(this.productos.some((element) => (element).code === code)){
-            alert("Code repetido.");
+            console.log("Code repetido.");
             
         }else{
 
@@ -111,8 +111,8 @@ class ProductManager{
                 
                 fs.readFile(this.path, "utf-8", (error, contenido) => {
                     if(error) throw Error ("No se pudo escribir el archivo!");
-                    console.log("contenido del archivo");
-                    console.log(contenido);
+                    //console.log("contenido del archivo");
+                    //console.log(contenido);
                     
                 })
             
@@ -157,8 +157,7 @@ class ProductManager{
                 let product = await fs.promises.readFile(this.path, "utf-8");
                 console.log(product);
                 this.productos = JSON.parse(product);
-                let delet = this.productos.indexOf(id);
-                this.productos.splice(delet, 1);
+                this.productos.splice(id-1, 1);
                 console.log("se elimino el producto");
                 console.log(this.productos);
                 await fs.promises.writeFile(this.path, JSON.stringify(this.productos));
@@ -191,14 +190,15 @@ class ProductManager{
 export default ProductManager;
 
 let app = new ProductManager("./ProyectoEcommerce/archivo.Json")
-app.agregarProducto("hola", "holaaa", 10, "ni", 9, 25);
 app.agregarProducto("ho", "hol", 11, "niS", 10, 26);
 app.agregarProducto("hol", "hola", 12, "niSE", 11, 27);
+app.agregarProducto("hoi", "holi", 16, "niSl", 10, 29);
+app.agregarProducto("hola", "holaaa", 10, "ni", 9, 25);
 app.agregarProducto("holaA", "holaaaA", 13, "niSES", 12, 28);
-console.log(app.getProductById(4));
+//console.log(app.getProductById(4));
 console.log(app.getProductos());
+//app.updateProduct(1, {titulo: "apaaa"});
+//console.log(app.getProductos());
+app.daleteProduct(2);
 console.log(app.getProductos());
-app.updateProduct(1, {titulo: "apaaa"});
-console.log(app.getProductos());
-app.daleteProduct(1);
-console.log(app.getProductById(2));
+//console.log(app.getProductById(2));
