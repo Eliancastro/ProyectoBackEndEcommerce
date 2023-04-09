@@ -1,5 +1,5 @@
 import express from 'express';
-import ProductManager from './ProductManager.js';
+import ProductManager from '../src/DAO/ProductManager.js';
 
 const puerto = 8080
 const app = express()
@@ -13,7 +13,7 @@ app.get('/', (req, res) => {
     res.status(200).send('<h1>Bienvenido</h1>')
 })
 
-app.get("/api/productos", async (req, res)=>{
+app.get("/productos", async (req, res)=>{
     try {
         const { limit } = req.query
         const products = await product.getProductos()       
@@ -32,7 +32,7 @@ app.get("/api/productos", async (req, res)=>{
     }
 })
 
-app.get("/api/productos/:pid", async (req, res)=>{
+app.get("/productos/:pid", async (req, res)=>{
     try {
         const {pid}= req.params
         // validar si es número

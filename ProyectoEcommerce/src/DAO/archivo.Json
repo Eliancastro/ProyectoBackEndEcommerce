@@ -1,0 +1,67 @@
+[
+    {
+      "title": "Cerveza",
+      "description": "Rubia",
+      "price": 500,
+      "status": true,
+      "category": "Bebidas",
+      "thumbnail": [
+        "empty"
+      ],
+      "code": "1",
+      "stock": 200,
+      "id": 1
+    },
+    {
+      "title": "Queso ",
+      "description": "roquefort",
+      "price": 1200,
+      "status": true,
+      "category": "Fiambrería",
+      "thumbnail": [
+        "empty"
+      ],
+      "code": "2",
+      "stock": 120,
+      "id": 2
+    },
+    {
+      "title": "Vino uvita",
+      "description": "tinto",
+      "price": 400,
+      "status": true,
+      "category": "Bebidas",
+      "thumbnail": [
+        "empty"
+      ],
+      "code": "3",
+      "stock": 180,
+      "id": 3
+    },
+    {
+      "title": "Papel higienico",
+      "description": "hoja doble",
+      "price": 800,
+      "status": true,
+      "category": "limpieza",
+      "thumbnail": [
+        "empty"
+      ],
+      "code": "6",
+      "stock": 250,
+      "id": 4
+    },
+    {
+      "title": "Fernet",
+      "description": "Branca",
+      "price": 2500,
+      "status": true,
+      "category": "Bebidas",
+      "thumbnail": [
+        "empty"
+      ],
+      "code": "9",
+      "stock": 540,
+      "id": 5
+    }
+  ]
