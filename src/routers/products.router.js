@@ -1,6 +1,6 @@
 import { Router } from "express";
-import ProductManager from "../../DAO/ProductManager.js";
-import uploader from "../../utils/multer.utils.js";
+import ProductManager from "../DAO/ProductManager.js";
+import uploader from "../utils/multer.utils.js";
 
 const router = Router();
 const productM = new ProductManager();

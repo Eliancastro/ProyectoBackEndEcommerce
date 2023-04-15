@@ -1,7 +1,9 @@
 import express from 'express';
-import ProductManager from '../src/DAO/ProductManager.js';
+//import ProductManager from '../src/DAO/ProductManager.js';
+import productRouter from './routers/products.router.js';
+import routerCar from './routers/carts.router.js';
 
-const puerto = 8080
+/*const puerto = 8080
 const app = express()
 const product = new ProductManager("./archivo.Json")
 
@@ -51,4 +53,22 @@ app.get("/productos/:pid", async (req, res)=>{
 
 app.listen(puerto, ()=>{
     console.log(`Listen on port ... ${puerto}`)
-})
+})*/
+
+const app = express()
+
+// Middleware 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json())
+app.use('/static',express.static('./src/public'));
+
+// Router de carritos
+app.use('/api/carts', routerCar)
+
+// Router de productos
+app.use('/api/products', productRouter)
+
+
+app.listen(8080, () => {
+    console.log('Escuchando puerto 8080');
+});

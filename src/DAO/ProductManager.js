@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import Producto from '../../src/Producto.js';
+import Producto from '../Producto.js';
 
 class ProductManager{
    
