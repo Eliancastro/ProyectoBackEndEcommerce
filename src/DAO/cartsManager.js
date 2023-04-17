@@ -3,7 +3,7 @@ import fs from 'fs';
 class CartManager {
     constructor() {
         this.carts = [];
-        this.path = './src/DAO/carts.json';
+        this.path = './DAO/carts.json';
     }
 
     addCart = async (newCart) => {
@@ -63,7 +63,7 @@ class CartManager {
             const fileCarts = await fs.promises.readFile(this.path, 'utf-8')
             const parsCarts = JSON.parse(fileCarts);
             
-            if (isNaN(Number(pid))) return { status: "error", message: 'id no válido' };
+            if (isNaN(Number(id))) return { status: "error", message: 'id no válido' };
 
             const findId = parsCarts.findIndex(product => product.id == id)
             if (findId === -1) return { status: "error", message: 'id no encontrado' };
@@ -71,16 +71,19 @@ class CartManager {
             this.carts = parsCarts.map(element => {
                 if(element.id == id){
                     element = Object.assign(element, data);
-                   return element
+                    console.log(element, 'updated');
+                    return element
+                   
                 }
                 return element
             })
             
             const cartJSON = JSON.stringify(this.carts, null, 2);
             await fs.promises.writeFile(this.path, cartJSON)
-            return returnedTarget
+            return this.carts
         }
         catch (err) {
+            console.log(err);
             return(err);
         }
 

@@ -1,10 +1,13 @@
 import * as fs from 'fs';
-import Producto from '../Producto.js';
+// import Producto from '../Producto.js';
+
 
 class ProductManager{
    
-    constructor(pat){
-        this.path = pat;
+    // constructor(pat){
+    constructor(){
+        // this.path = pat;
+        this.path = './DAO/archivo.json';
         this.productos = new Array();
         //console.log("generando escritura de archivo Sync con fileName:" + this.path);
         
@@ -26,8 +29,9 @@ class ProductManager{
         //console.log("leyendo contenido del archivo");
         return this.productos;
     }
-    agregarProducto = (titulo, descripcion, precio, img, code, stock) => {
-        if(this.productos.some((element) => (element).code === code)){
+    agregarProducto = async (producto) => {
+        this.productos = await this.getProductos()
+        if(this.productos.some((element) => (element).code === producto.code)){
             return { status: "error", message: 'Code repetido' };
             
         }else{
@@ -38,26 +42,27 @@ class ProductManager{
             }else{
                 id = this.productos[this.productos.length-1].id +1;
             }
-            let nuevoProducto = new Producto (id, titulo, descripcion, precio, img, code, stock);
-            this.productos.push(nuevoProducto);
-            this.writeFile(this.productos)
+            // let nuevoProducto = new Producto (id, titulo, descripcion, precio, img, code, stock);
+            this.productos.push(producto);
+            await this.writeFile(this.productos)
                 
-                fs.readFile(this.path, "utf-8", (error, contenido) => {
-                    if(error) throw Error ("No se pudo escribir el archivo!");
-                    //console.log("contenido del archivo");
-                    //console.log(contenido);
+                // fs.readFile(this.path, "utf-8", (error, contenido) => {
+                //     if(error) throw Error ("No se pudo escribir el archivo!");
+                //     //console.log("contenido del archivo");
+                //     //console.log(contenido);
                     
-                })
+                // })
             
-                return { status: "error", message: 'Agregado con exito' };
+            return { status: "OK", message: 'Agregado con exito' };
         }
     }
+
     getProductById = async (id) => {
         let productFilter = await fs.promises.readFile(this.path, "utf-8");
         console.log(productFilter);
         this.productos = JSON.parse(productFilter);
         //console.log(this.productos);
-        const productoId = this.productos.filter(obj => obj.id === id);
+        const productoId = this.productos.filter(obj => obj.id == id);
         if(productoId.length > 0){
             //console.log("el producto con este ${id} es :");
             return{status: "succes", message: 'el producto con este id es :', producto: productoId};
@@ -66,22 +71,22 @@ class ProductManager{
         }
     }
 
-    consultaDeProducto = async () =>{
-        try{
-            //await this.prepareDirProducts();
+    // consultaDeProducto = async () =>{
+    //     try{
+    //         //await this.prepareDirProducts();
 
-            let productFile = await this.fs.promises.readFile(this.path, "utf-8");
+    //         let productFile = await this.fs.promises.readFile(this.path, "utf-8");
 
-            this.productos = JSON.parse(productFile)
+    //         this.productos = JSON.parse(productFile)
 
-            return this.productos;
+    //         return this.productos;
 
-        } catch (error){
-            //console.error("Error al consultar los productos");
-            return Error(`Error al consultar los productos, detalle del error ${error}`);
-        }
+    //     } catch (error){
+    //         //console.error("Error al consultar los productos");
+    //         return Error(`Error al consultar los productos, detalle del error ${error}`);
+    //     }
 
-    }
+    // }
 
     daleteProduct = async (id) => {
         try{
@@ -120,6 +125,7 @@ class ProductManager{
 }
 
 export default ProductManager;
+
 
 //let app = new ProductManager("./ProyectoEcommerce/archivo.Json")
 //app.agregarProducto("ho", "hol", 11, "niS", 10, 26);

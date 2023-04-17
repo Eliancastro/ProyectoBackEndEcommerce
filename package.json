@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "ecommerce",
   "type": "module",
-  "main": "ProyectoEcommerce/src/app.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "dev"
   },
   "author": "Elian Castro",
   "license": "ISC",
