@@ -3,7 +3,7 @@ import fs from 'fs';
 class CartManager {
     constructor() {
         this.carts = [];
-        this.path = './DAO/carts.json';
+        this.path = './src/DAO/carts.json';
     }
 
     addCart = async (newCart) => {

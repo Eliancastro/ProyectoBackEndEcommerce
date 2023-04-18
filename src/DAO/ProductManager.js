@@ -7,7 +7,7 @@ class ProductManager{
     // constructor(pat){
     constructor(){
         // this.path = pat;
-        this.path = './DAO/archivo.json';
+        this.path = './src/DAO/archivo.json';
         this.productos = new Array();
         //console.log("generando escritura de archivo Sync con fileName:" + this.path);
         
