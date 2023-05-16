@@ -1,4 +1,4 @@
-import multer from 'multer';
+/*import multer from 'multer';
 const pathUrl = new URL('../', import.meta.url)
 
 const path = pathUrl.pathUrl.slice(1, pathUrl.pathUrl.length)+'public/img'
@@ -22,4 +22,28 @@ const uploader = multer({
     }
 })
 
-export default uploader
+export default uploader*/
+
+const multer = require('multer')
+const {dirname} = require('path')
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb)=>{
+        cb(null, `${dirname(__dirname)}/public/uploads`)
+    },
+    filename: (req, file, callback)=>{
+        callback(null, `${Date.now()}-${file.originalname}`)
+    }
+}) // nombre del archivo - ubicación
+
+const uploader = multer({
+    storage,
+    onError: (err,next)=>{
+        console.log(err)
+        next(err)
+    }
+})
+
+module.exports={
+    uploader
+}
