@@ -3,6 +3,7 @@ const { Schema, model } = require('mongoose')
 const collection = 'carritos'
 
 const cartSchema = new Schema({
+    status: String,
     // email: String,
     products: [{
         product: {

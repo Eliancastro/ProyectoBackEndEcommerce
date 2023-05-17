@@ -25,8 +25,22 @@ class ProductManagerMongo {
             return new Error(error)
         }
     }
-    async updateProduct(pid){}
-    async deleteProduct(pid){}
+    async updateProduct(pid, newProduct){
+        try {
+            return await productModel.updateOne({_id: pid},newProduct)
+        } catch (error) {
+            return new Error(error)
+        }
+    }
+
+    async deleteProduct(pid){
+        try {
+            return await productModel.deleteOne({_id: pid})
+        } catch (error) {
+            return new Error(error)
+        }
+    }
+
 }
 
 module.exports = new ProductManagerMongo

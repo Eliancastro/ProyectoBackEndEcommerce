@@ -39,14 +39,34 @@ router.post('/', async (req,res)=>{
             payload: result
         })
     } catch (error) {
-        console.log(error)
+        return new Error(error)
     }
 })
-router.put('/:pid', (req,res)=>{
-    res.status(200).send('Actualizar productos')
+router.put('/:pid', async(req, res) =>{
+    try{
+        const { pid } = req.params
+        const newProduct = req.body
+        let result = await productManager.updateProduct(pid, newProduct)
+        res.status(200).send({
+            status: 'success',
+            payload: result})
+    } catch(error) {
+        return new Error(error)
+    }
 })
-router.delete('/:pid', (req,res)=>{
-    res.status(200).send('Borrar productos')
+
+//DELETE
+router.delete('/:pid', async(req, res) =>{
+    try {   
+        const { pid } = req.params
+        await productManager.deleteProduct(pid)
+        res.status(200).send({
+            status: 'success',
+            payload: `Producto id: ${pid} fue eliminado`
+        })
+    } catch (error) {
+        return new Error(error)
+    }
 })
 
 module.exports = router
