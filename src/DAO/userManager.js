@@ -1,7 +1,7 @@
 const fs = require('fs')
 const crypto = require('crypto')
 
-const path = './files/Usuarios.json'
+const path = './src/DAO/usuarios.json'
 
 
 class ManagerUsuarios {

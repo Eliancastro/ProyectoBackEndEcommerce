@@ -1,7 +1,7 @@
 const {Router} = require('express')
 const router = Router()
-const { productModel } = require("../dao/models/products.model")
-const { cartModel } = require('../dao/models/carts.model')
+const { productModel } = require("../models/product.model.js")
+const { cartModel } = require('../models/carts.model.js')
 
 router.get('/products', async(req, res) =>{   
   let page = parseInt(req.query.page)

@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const path = './src/mockDB/Productos.json'
+const path = './src/DAO/archivo.json'
 
 class ProductManagerFile{
     constructor(){

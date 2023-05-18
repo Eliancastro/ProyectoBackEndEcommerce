@@ -2,10 +2,10 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const objectConfig = require('./config/objetConfig.js')
 // import express from 'express'
-const { uploader } = require('./utils/multer')
-const userRouter = require('./routes/users.router')
-const productRouter = require('./routes/products.router')
-const viewsRouter = require('./routes/views.router')
+const { uploader } = require('./utils/multer.utils.js')
+const userRouter = require('./routers/users.router.js')
+const productRouter = require('./routers/products.router.js')
+const viewsRouter = require('./routers/views.router.js')
 //__________________________________________________________________________
 const { Server } = require('socket.io')
 

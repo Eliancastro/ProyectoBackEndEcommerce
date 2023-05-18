@@ -1,7 +1,7 @@
 const {Router}= require ('express')
 const router = Router()
-const cartManager = require('../dao/cart.mongo')
-const productManager = require('../dao/product.mongo')
+const cartManager = require('../mongo/cart.mongo.js')
+const productManager = require('../mongo/product.mongo.js')
 
 
 //GET

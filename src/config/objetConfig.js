@@ -7,11 +7,11 @@
 //}
 
 const {connect} = require('mongoose')
-const { orderModel } = require('../models/order.model')
-const { ordenes } = require('./ordenes')
+//const { orderModel } = require('../models/order.model')
+//const { ordenes } = require('./ordenes')
 
 // let url = 'mongodb+srv://federico:federico1@cluster0.tzkuy8w.mongodb.net/comsion39750?retryWrites=true&w=majority'
-let url = 'mongodb://localhost:27017/comision39750'
+let url = 'mongodb://localhost:27017'
 
 module.exports = {
     connectDB: async () => {
