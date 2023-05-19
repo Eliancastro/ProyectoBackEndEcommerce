@@ -1,6 +1,6 @@
 const express = require('express')
 const {connectDb} = require('./config/configServer.js')
-const routerServer = require('./routes')
+const routerServer = require('./routers')
 const logger = require('morgan')
 
 const app = express()
