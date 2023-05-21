@@ -1,18 +1,31 @@
 const {Router} =require('express')
 const productManager = require('../mongo/product.mongo.js')
-
+const { productModel } = require('../models/product.model.js')
 const router =  Router()
 
 router.get('/', async (req,res)=>{
     try {
-        const products = await productManager.getProducts()
+        let page = parseInt(req.query.page)
+        let limit = parseInt(req.query.limit)
+        let sort = req.query.sort
+        let sortType = {}
+       
+        if(!page) page = 1
+        if(!limit) limit = 4
+        if(sort === 'asc'){
+            sortType = {price: 1}
+        } else if (sort === 'desc'){
+            sortType = {price: -1}
+        }
+        
+        const products =  await productModel.paginate({},{page,limit,sort, lean:true})
         res.status(200).send({
             status: 'success',
             payload: products
         })
         
     } catch (error) {
-        cconsole.log(error)
+        return new Error(error)
     }
 })
 router.get('/:pid', async (req,res)=>{
@@ -24,7 +37,7 @@ router.get('/:pid', async (req,res)=>{
             payload: product
         })
     } catch (error) {
-        console.log(error)
+       return new Error(error)
     }
 })
 router.post('/', async (req,res)=>{
