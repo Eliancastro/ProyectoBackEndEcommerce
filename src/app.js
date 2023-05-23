@@ -1,11 +1,23 @@
 const express = require('express')
+const session = require('express-session')
 const cookieParser = require('cookie-parser')
+
 const objectConfig = require('./config/objetConfig.js')
-// import express from 'express'
-const { uploader } = require('./utils/multer.utils.js')
-const userRouter = require('./routers/users.router.js')
-const productRouter = require('./routers/products.router.js')
-const viewsRouter = require('./routers/views.router.js')
+const appRouter = require('./routers')
+
+// ______________________________________________________
+
+
+const FileStore  = require('session-file-store')
+const {create} = require('connect-mongo') 
+
+// hbs __________________________________________________________________
+const handlebars = require('express-handlebars')
+const { connect } = require('mongoose')
+
+// passport 
+const { initPassport } = require('./config/passport.config.js')
+const passport = require('passport')
 //__________________________________________________________________________
 const { Server } = require('socket.io')
 
@@ -20,8 +32,7 @@ const io = new Server(httpServer)
 
 objectConfig.connectDB()
 
-// hbs __________________________________________________________________
-const handlebars = require('express-handlebars')
+
 
 app.engine('handlebars', handlebars.engine())
 app.set('views', __dirname+'/views')
@@ -33,24 +44,50 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 // console.log(__dirname+'/public')
 app.use('/static', express.static(__dirname+'/public'))
-// mid de tercero
-app.use(cookieParser())
+app.use(cookieParser('P@l@braS3cr3t0'))
 
 
-app.use('/', viewsRouter)
+// mid de tercero 1
+// app.use(session({
+    //     secret: 'secretCoder',
+    //     resave: true,
+    //     saveUninitialized: true
+    // }))    
+    
+// const fileStore = FileStore(session)
 
-// http://localhost:8080 /api/usuarios
-app.use('/api/usuarios',  userRouter)
+// app.use(session({
+//         store: new fileStore({
+//             ttl: 10,
+//             path: './session',
+//             retries: 0
+//         }),
 
-app.use('/api/productos', productRouter)
-// app.use('/api/carrito', carritoRouter)
+//         secret: 'secretCoder',
+//         resave: true,
+//         saveUninitialized: true
+// })) 
 
-app.post('/single', uploader.single('myfile'), (req, res)=>{
-    res.status(200).send({
-        status: 'success',
-        message: 'se subió correctamente'
-    })
-})
+// mongo
+app.use(session({
+        store: create({
+            mongoUrl: 'mongodb://localhost:27017',
+            mongoOptions: {
+                useNewUrlParser: true,
+                useUnifiedTopology: true
+            },
+            ttl: 1000000*6000
+        }),
+        secret: 'secretCoder',
+        resave: false,
+        saveUninitialized: false
+})) 
+
+initPassport()
+passport.use(passport.initialize())
+passport.use(passport.session())
+
+app.use(appRouter)
 
 let messages = []
 
@@ -72,4 +109,10 @@ app.use((err, req, res, next)=>{
     console.log(err)
     res.status(500).send('Todo mal')
 })
+
+
+
+
+
+
 
