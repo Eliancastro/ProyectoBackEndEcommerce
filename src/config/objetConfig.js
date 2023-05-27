@@ -11,7 +11,7 @@ const {connect} = require('mongoose')
 //const { ordenes } = require('./ordenes')
 
 // let url = 'mongodb+srv://federico:federico1@cluster0.tzkuy8w.mongodb.net/comsion39750?retryWrites=true&w=majority'
-let url = 'mongodb://localhost:27017'
+let url = 'mongodb://localhost:27017/miPrimeraBase'
 
 module.exports = {
     connectDB: async () => {

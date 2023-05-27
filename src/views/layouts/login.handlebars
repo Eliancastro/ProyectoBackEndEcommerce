@@ -1,0 +1,17 @@
+<div>
+    <h1>Inyección de cookies</h1>
+    {{!-- <form id="cookieForm" onsubmit="return false"> --}}
+    <form id="cookieForm" action="/api/session/login" method="POST">
+        <label>Email</label>
+        <input name="email">
+        <br />
+        <label>pass</label>
+        {{!-- <input name="email"> --}}
+        <input name="password">
+        <input type="submit">
+    </form>
+    <a href="/api/session/github">Entrar Con Github</a>
+    {{!-- <button onclick="getCookie()">Ver Cookie</button> --}}
+</div>
+{{!-- <script src="/static/js/cookieSetter.js"></script> --}}
+

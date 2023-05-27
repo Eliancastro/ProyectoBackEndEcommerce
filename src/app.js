@@ -16,8 +16,10 @@ const handlebars = require('express-handlebars')
 const { connect } = require('mongoose')
 
 // passport 
-const { initPassport } = require('./config/passport.config.js')
+// const { initPassport, initPassortGithub } = require('./config/passport.config.js')
 const passport = require('passport')
+const { initPassport } = require('./passport-jwt/passport.config.js')
+
 //__________________________________________________________________________
 const { Server } = require('socket.io')
 
@@ -69,23 +71,24 @@ app.use(cookieParser('P@l@braS3cr3t0'))
 // })) 
 
 // mongo
-app.use(session({
-        store: create({
-            mongoUrl: 'mongodb://localhost:27017',
-            mongoOptions: {
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            },
-            ttl: 1000000*6000
-        }),
-        secret: 'secretCoder',
-        resave: false,
-        saveUninitialized: false
-})) 
+// app.use(session({
+//         store: create({
+//             mongoUrl: 'mongodb://localhost:27017/comision39750',
+//             mongoOptions: {
+//                 useNewUrlParser: true,
+//                 useUnifiedTopology: true
+//             },
+//             ttl: 1000000*6000
+//         }),
+//         secret: 'secretCoder',
+//         resave: false,
+//         saveUninitialized: false
+// })) 
 
 initPassport()
+// initPassortGithub()
 passport.use(passport.initialize())
-passport.use(passport.session())
+// passport.use(passport.session())
 
 app.use(appRouter)
 

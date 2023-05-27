@@ -10,7 +10,7 @@ connectDb()
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use('/static',express.static(__dirname+'/public'))
+app.use('/src',express.static(__dirname+'/public'))
 app.use(logger('dev'))
 
 
