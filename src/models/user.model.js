@@ -1,27 +1,24 @@
-/// esquema 
-const {Schema, model} = require('mongoose')
+import mongoose from 'mongoose';
 
-const collection = 'usuarios'
+const collection = 'users';
 
-const userSchema = new Schema({// nomnre 
-    first_name: {
+const schema = new mongoose.Schema({
+    first_name: String,
+    last_name: String,
+    email:{
         type: String,
-        index: true
-    },
-    last_name: {
-        type: String
-    },
-    email: {
-        type: String,
-        required: true,
         unique: true
     },
-    gender: String
+    age:Number,
+    password: String,
+    loggedBy: String,
+    role: {
+        type: String,
+        default: 'user',
+        enum: ['user', 'admin'],
+    }
 })
 
-const userModel = model(collection, userSchema)
+const userModel = mongoose.model(collection,schema);
 
-module.exports = {
-    userModel
-}
-
+export default userModel;
