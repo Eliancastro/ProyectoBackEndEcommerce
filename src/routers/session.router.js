@@ -1,9 +1,9 @@
 const {Router} = require('express')
-const { auth } = require('../middlewares/autenticacion.middleware')
+const { auth } = require('../middleware/autenticacion.middleware.js')
 const { userModel } = require('../models/user.model')
 const { createHash, isValidPassword } = require('../utils/bcryptHash')
 const passport = require('passport')
-const { generateToken } = require('../utils/jwt')
+const { generateToken } = require('../passport-jwt/jwt.js')
 const { passportCall } = require('../passport-jwt/passportCall')
 const { authorizaton } = require('../passport-jwt/authorizarionJwtRole')
 

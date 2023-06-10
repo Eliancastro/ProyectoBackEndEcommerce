@@ -1,6 +1,6 @@
 import { Router } from "express";
-import userModel from '../services/db/models/user.model.js';
-import {authToken} from '../utils.js';
+import userModel from '../models/user.model.js';
+import {authToken} from '../utils/dirname.js';
 
 
 const router = Router();

@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import userModel from '../services/db/models/user.model.js';
-import {isValidPassword} from '../utils.js';
-import { generateJWToken } from '../utils.js';
+import userModel from '../models/user.model.js';
+import {isValidPassword} from '../utils/dirname.js';
+import { generateJWToken } from '../utils/dirname.js';
 
 const router = Router();
 

@@ -32,12 +32,11 @@ class ManagerUsuarios {
         }
         console.log(usuario)
         usuario.salt = crypto.randomBytes(128).toString('base64')
-        // crypto.randomBytes(128).toString('base64')
-        // console.log(usuario.contrasena)
+        
         usuario.password = crypto.createHmac('sha256', usuario.salt).update(usuario.contrasena).digest('hex')
         
         console.log(usuario)
-        // crypto.createHmac('sha256', 'palabraSecreta').update(users.contrasena).digest('hex')
+       
         users.push(usuario);
         await fs.promises.writeFile(path,JSON.stringify(users,null,'\t'));
         return usuario;
@@ -55,9 +54,6 @@ class ManagerUsuarios {
         }
         const usuario = usuarios[usuarioIndex];
         const newHash = crypto.createHmac('sha256',usuario.salt).update(contrasena).digest('hex');
-        //Ya que no podemos "descifrar" la contraseña original del usuario, tenemos que hashear el intento
-        //de contraseña y compararla con la contraseña que tenga guardada el usuario.
-        //Nota entonces que, validar una contraseña no es descifrar la contraseña guardada, sino comparar con la contraseña ingresada
         
         if(newHash===usuario.password){
             console.log("Logueado");
