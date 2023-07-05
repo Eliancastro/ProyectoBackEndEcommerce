@@ -1,4 +1,4 @@
-import express from 'express';
+/*import express from 'express';
 import handlebars from 'express-handlebars';
 import __dirname from './utils/dirname.js';
 import config from './config/config.js';
@@ -6,7 +6,7 @@ import config from './config/config.js';
 //Passport imports
 
 //Routers
-import viewsRouter from './routes/views.router.js';
+//import viewsRouter from './routers/views.router.js';
 //import usersViewRouter from './routes/users.views.router.js';
 //Custom - Extended
 
@@ -55,7 +55,31 @@ const listNumbers = (...numbers) => {
         console.log(dataTypes);
         process.exit(-4);
     }
-};
+};*/
+
+import express from 'express';
+import config from './config/config.js';
+
+//Passport imports
+
+//import Routers
+import emailRouter from './routers/email.router.js';
+import smsRouter from './routers/sms.router.js';
+
+const app = express();
+
+//JSON settings:
+app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+
+//Declare routers:
+app.use("/api/email", emailRouter);
+app.use("/api/sms", smsRouter);
+
+const SERVER_PORT = config.port;
+app.listen(SERVER_PORT, () => {
+    console.log("Servidor escuchando por el puerto: " + SERVER_PORT);
+});
 
 
 
