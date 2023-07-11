@@ -56,15 +56,14 @@ const listNumbers = (...numbers) => {
         process.exit(-4);
     }
 };*/
-
 import express from 'express';
 import config from './config/config.js';
-
-//Passport imports
-
 //import Routers
-import emailRouter from './routers/email.router.js';
-import smsRouter from './routers/sms.router.js';
+import compressionRouter from './routers/compression.router.js'
+import usersRouter from './routers/users.router.js'
+
+//Other imports...
+import compression from 'express-compression';
 
 const app = express();
 
@@ -72,9 +71,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+app.use(compression({
+    brotli: {enabled: true, zlib: {}}
+}));
+
 //Declare routers:
-app.use("/api/email", emailRouter);
-app.use("/api/sms", smsRouter);
+app.use("/compression", compressionRouter);
+app.use("/api/users", usersRouter);
 
 const SERVER_PORT = config.port;
 app.listen(SERVER_PORT, () => {

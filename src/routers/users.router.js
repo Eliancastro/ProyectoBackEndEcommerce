@@ -1,24 +1,12 @@
 import { Router } from "express";
-import userModel from '../models/user.model.js';
-import {authToken} from '../utils/dirname.js';
-
+import {getUsers, saveUser} from '../controllers/users.controller.js';
+import errorHandler from '../services/errors/middlewares/index.js';
 
 const router = Router();
 
-router.get("/:userId", authToken,
-async (req, res) =>{
-    const userId = req.params.userId;
-    try {
-        const user = await userModel.findById(userId);
-        if (!user) {
-            res.status(202).json({message: "User not found with ID: " + userId});
-        }
-        res.json(user);
-    } catch (error) {
-        console.error("Error consultando el usuario con ID: " + userId);
-    }
-});
-
+router.get("/", getUsers);
+router.post("/", saveUser);
+router.use(errorHandler);
 
 export default router;
 
