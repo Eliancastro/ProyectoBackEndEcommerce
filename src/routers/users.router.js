@@ -1,6 +1,6 @@
 import { Router } from "express";
 import {getUsers, saveUser} from '../controllers/users.controller.js';
-import errorHandler from '../services/errors/middlewares/index.js';
+import errorHandler from '../middleware/index.js';
 
 const router = Router();
 
