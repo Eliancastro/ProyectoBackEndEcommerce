@@ -58,32 +58,45 @@ const listNumbers = (...numbers) => {
 };*/
 import express from 'express';
 import config from './config/config.js';
+import MongoSingleton from './config/mongodb-singleton.js';
 //import Routers
-import compressionRouter from './routers/compression.router.js'
-import usersRouter from './routers/users.router.js'
-
-//Other imports...
-import compression from 'express-compression';
+//Performance test:
+import performanceRouter from './routers/performance-test.router.js';
+import sessionRouter from './routers/sessions.router.js'
+import userRouter from './routers/users.router.js';
+import { addLogger } from './config/logger.js';
 
 const app = express();
 
 //JSON settings:
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+app.use(addLogger);
 
-app.use(compression({
-    brotli: {enabled: true, zlib: {}}
-}));
 
 //Declare routers:
-app.use("/compression", compressionRouter);
-app.use("/api/users", usersRouter);
+app.use("/api/performance", performanceRouter);
+app.use("/api/session", sessionRouter);
+app.use("/api/user", userRouter);
+
+app.get("/logger", (req, res)=>{
+    req.logger.warning("Prueba de log level warning!");
+    res.send("Prueba de logger!");
+});
 
 const SERVER_PORT = config.port;
 app.listen(SERVER_PORT, () => {
     console.log("Servidor escuchando por el puerto: " + SERVER_PORT);
 });
 
+const mongoInstance = async () => {
+    try {
+        await MongoSingleton.getInstance();
+    } catch (error) {
+        console.error(error);
+    }
+};
+mongoInstance();
 
 
 

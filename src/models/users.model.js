@@ -1,19 +1,22 @@
-import moongose from 'mongoose';
+import mongoose from 'mongoose';
 
-const schema = new moongose.Schema({
-    name:String,
-    role:String,
+const collection = 'users';
+
+const schema = new mongoose.Schema({
+    first_name: String,
+    last_name: String,
     email:{
         type: String,
         unique: true
     },
-    orders: [
-        {
-            type: moongose.SchemaTypes.ObjectId,
-            ref: 'orders'
-        }
-    ]
-});
+    age:Number,
+    password: String,
+    role: {
+        type: String,
+        default: 'user',
+        enum: ['user', 'admin'],
+    }
+})
 
-const usersModel = moongose.model('users', schema);
-export default usersModel;
+const userModel = mongoose.model(collection,schema);
+export default userModel;
