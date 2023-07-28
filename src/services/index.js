@@ -1,6 +1,6 @@
-import Users from "../dao/Users.dao.js";
-import Pet from "../dao/Pets.dao.js";
-import Adoption from "../dao/Adoption.js";
+import Users from "../DAO/Users.dao.js";
+import Pet from "../DAO/Pets.dao.js";
+import Adoption from "../DAO/Adoption.js";
 
 import UserRepository from "../repository/UserRepository.js";
 import PetRepository from "../repository/PetRepository.js";
