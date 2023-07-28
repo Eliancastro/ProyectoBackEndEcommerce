@@ -1,103 +1,43 @@
-/*import express from 'express';
-import handlebars from 'express-handlebars';
-import __dirname from './utils/dirname.js';
-import config from './config/config.js';
-
-//Passport imports
-
-//Routers
-//import viewsRouter from './routers/views.router.js';
-//import usersViewRouter from './routes/users.views.router.js';
-//Custom - Extended
-
-
-const app = express();
-
-//JSON settings:
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-
-app.engine('handlebars',handlebars.engine());
-app.set('views',__dirname+'/views')
-app.set('view engine','handlebars');
-app.use(express.static(__dirname+'/public'));
-
-//Declare routers:
-app.use("/",viewsRouter);
-//app.use("/users", usersViewRouter);
-
-const SERVER_PORT = config.port;
-app.listen(SERVER_PORT, () => {
-    console.log("Servidor escuchando por el puerto: " + SERVER_PORT);
-    //console.log(process.argv);
-    //Excluyendo los args por defecto:
-    //console.log(process.argv.slice(2));
-    //const args = process.argv.slice(2);
-    //DotEnv:
-    console.log(config);
-    console.log("Llamando lista de numeros:");
-    //listNumbers(1, 2, 3, "aaa", true);
-});
-
-const listNumbers = (...numbers) => {
-    let invalidData = false;
-    let dataTypes = new Array();
-    console.log("Datos recibidos");
-    numbers.forEach(element => {
-        console.log(element);
-        if (typeof(element) !== 'number') {
-            invalidData = true;
-        }
-        dataTypes.push(typeof element);
-    });
-    if (invalidData){
-        console.error("Invalid parameters.");
-        console.log(dataTypes);
-        process.exit(-4);
-    }
-};*/
 import express from 'express';
-import config from './config/config.js';
-import MongoSingleton from './config/mongodb-singleton.js';
-//import Routers
-//Performance test:
-import performanceRouter from './routers/performance-test.router.js';
-import sessionRouter from './routers/sessions.router.js'
-import userRouter from './routers/users.router.js';
-import { addLogger } from './config/logger.js';
+import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+
+import usersRouter from './routes/users.router.js';
+import petsRouter from './routes/pets.router.js';
+import adoptionsRouter from './routes/adoption.router.js';
+import sessionsRouter from './routes/sessions.router.js';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUIExpress from 'swagger-ui-express';
 
 const app = express();
+const PORT = process.env.PORT||9090;
+const connection = mongoose.connect(`mongodb://localhost:27017/clase39-adoptme?retryWrites=true&w=majority`)
 
-//JSON settings:
-app.use(express.json());
-app.use(express.urlencoded({extended:true}));
-app.use(addLogger);
-
-
-//Declare routers:
-app.use("/api/performance", performanceRouter);
-app.use("/api/session", sessionRouter);
-app.use("/api/user", userRouter);
-
-app.get("/logger", (req, res)=>{
-    req.logger.warning("Prueba de log level warning!");
-    res.send("Prueba de logger!");
-});
-
-const SERVER_PORT = config.port;
-app.listen(SERVER_PORT, () => {
-    console.log("Servidor escuchando por el puerto: " + SERVER_PORT);
-});
-
-const mongoInstance = async () => {
-    try {
-        await MongoSingleton.getInstance();
-    } catch (error) {
-        console.error(error);
-    }
+const swaggerOptions = {
+    definition: {
+        openapi: "3.0.1",
+        info: {
+            title: "Documentacion API Adoptme",
+            description: "Documentacion para uso de swagger"
+        }
+    },
+    apis: [`./src/docs/**/*.yaml`]
 };
-mongoInstance();
+const specs = swaggerJSDoc(swaggerOptions);
+//Declare swagger api endpoint 
+app.use('/apidocs', swaggerUIExpress.serve, swaggerUIExpress.setup(specs));
 
+app.use(express.json());
+app.use(cookieParser());
+
+app.use('/api/users',usersRouter);
+app.use('/api/pets',petsRouter);
+app.use('/api/adoptions',adoptionsRouter);
+app.use('/api/sessions',sessionsRouter);
+
+app.listen(PORT, () => {
+    console.log(`Listening on ${PORT}`);
+});
 
 
 

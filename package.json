@@ -5,9 +5,10 @@
   "main": "src/app.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start:dev": "nodemon src/app.js",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "mocha test/supertest.test.js"
   },
   "author": "Elian Castro",
   "license": "ISC",
@@ -39,9 +40,14 @@
     "express-compression": "^1.0.2",
     "@faker-js/faker": "^7.6.0",
     "artillery-plugin-metrics-by-endpoint": "^1.0.2",
-    "winston": "^3.8.2"
+    "winston": "^3.8.2",
+    "supertest": "^6.3.3",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3"
   },
   "devDependencies": {
-    "artillery": "^2.0.0-32"
+    "artillery": "^2.0.0-32",
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0"
   }
 }

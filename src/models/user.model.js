@@ -11,7 +11,6 @@ const schema = new mongoose.Schema({
     },
     age:Number,
     password: String,
-    loggedBy: String,
     role: {
         type: String,
         default: 'user',
@@ -20,5 +19,4 @@ const schema = new mongoose.Schema({
 })
 
 const userModel = mongoose.model(collection,schema);
-
 export default userModel;
